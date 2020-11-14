@@ -28,16 +28,21 @@ function getDescription(answer: Answer){
 
 
 export default function AnswersShow(props: Props) {
-    const description = getDescription(props.answer)
+  const description = getDescription(props.answer)
+  const ogpImageUrl = `${process.env.NEXT_PUBLIC_WEB_URL}/api/answers/${props.answer.id}/ogp`
   return (
     <Layout>
         <Head>
-            <meta name="description" key="description" content={description} />
-            <meta
+          <meta name="description" key="description" content={description} />
+          <meta
             property="og:description"
             key="ogDescription"
             content={description}
-            />
+          />
+          <meta property="og:image" key="ogImage" content={ogpImageUrl} />
+          <meta name="twitter:card" key="twitterCard" content="summary_large_image" />
+          <meta name="twitter:image" key="twitterImage" content={ogpImageUrl} />
+            
         </Head>
         <div className="row justify-content-center">
             <div className="col-12 col-md-6">
