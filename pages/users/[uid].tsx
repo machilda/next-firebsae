@@ -4,6 +4,7 @@ import { useState, useEffect, FormEvent } from "react";
 import {User} from "../../models/User";
 import Layout from '../../components/Layout'
 import { toast } from 'react-toastify';
+import Link from "next/link";
 
 type Query ={
     uid: string
@@ -62,34 +63,42 @@ export default function UserShow(){
                     <h1 className='h4'>{user.name}さんのページ</h1>
                     <div className='m-5'>{user.name}さんに質問しよう</div>
                     <div className="row justify-content-center mb-3">
-                    <div className="col-12 col-md-6">
-                        {user.uid === firebase.auth().currentUser.uid?(
-                            <div>自分には送信できません。</div>
-                        ):(
-                        <form onSubmit={onSubmit}>
-                            <textarea
-                                    className="form-control"
-                                    placeholder="おげんきですか？"
-                                    rows={6}
-                                    onChange={e=>setBody(e.target.value)}
-                                    value={body}
-                                    required
-                                ></textarea>
-                            <div className="m-3">
-                                {isSending ? (
-                                    <div className="spinner-border text-secondary" role="status"></div>
-                                    ) : (
-                                    <button type="submit" className="btn btn-primary">
-                                        質問を送信する
-                                    </button>
-                                )}
-                            </div>
-                        </form>
-                        )}
-                    </div>
+                        <div className="col-12 col-md-6">
+                            {user.uid === firebase.auth().currentUser.uid?(
+                                <div>自分には送信できません。</div>
+                            ):(
+                            <form onSubmit={onSubmit}>
+                                <textarea
+                                        className="form-control"
+                                        placeholder="おげんきですか？"
+                                        rows={6}
+                                        onChange={e=>setBody(e.target.value)}
+                                        value={body}
+                                        required
+                                    ></textarea>
+                                <div className="m-3">
+                                    {isSending ? (
+                                        <div className="spinner-border text-secondary" role="status"></div>
+                                        ) : (
+                                        <button type="submit" className="btn btn-primary">
+                                            質問を送信する
+                                        </button>
+                                    )}
+                                </div>
+                            </form>
+                            )}
+                        </div>
+                        <div>
+                            {user && (
+                                <p>
+                                <Link href="/users/me">
+                                    <a className="btn btn-link">自分もみんなに質問してもらおう！</a>
+                                </Link>
+                                </p>
+                            )}
+</div>
                     </div>
                 </div>
-                
             )}
         </Layout>
       )

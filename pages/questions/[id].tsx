@@ -60,8 +60,11 @@ export default function QuestionShow (){
         e.preventDefault()
         setIsSending(true)
 
+        const answerRef = firebase.firestore().collection('answers').doc()
+
+
         await firebase.firestore().runTransaction(async(t)=>{
-            t.set(firebase.firestore().collection('answers').doc(),{
+            t.set(answerRef,{
                 uid: user.uid,
                 questionId: question.id,
                 body,
@@ -74,7 +77,7 @@ export default function QuestionShow (){
 
         const now = new Date().getTime()
         setAnswer({
-            id: '',
+            id: answerRef.id,
             uid: user.uid,
             questionId: question.id,
             body,
