@@ -1,15 +1,17 @@
 
-export async function getServerSideProps({query}) {
-    const res = await fetch(process.env.API_URL + `/api/answers/${query.id}`)
-    const json = await res.json()
-    return { props: json }
-}
-
-
+import fetch from 'node-fetch';
 import Layout from '../../../components/Layout'
 import { Answer } from '../../../models/Answer'
 import { Question } from '../../../models/Question'
 import Head from 'next/head';
+
+
+
+export async function getServerSideProps({ query }) {
+  const res = await fetch(process.env.API_URL + `/api/answers/${query.id}`)
+  const json = await res.json()
+  return { props: json }
+}
 
 type Props = {
   answer: Answer
