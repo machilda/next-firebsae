@@ -44,10 +44,10 @@ export default function QuestionReceived(){
         setQuestion(questions.concat(getQuestions))
     }
 
-    async function loadQuestions() {
-        console.log('loadQuestions');
+    async function loadQuestions() {        
+        const snapshot = await createBaseQuery().get()
+        console.log(snapshot);
         
-        const snapshot = await createBaseQuery().get()        
         if(snapshot.empty) {
             setIsPaginationFinished(true)
             return
